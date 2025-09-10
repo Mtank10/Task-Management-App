@@ -16,6 +16,8 @@ app.use(cors({
   credentials: true
 }));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 connectDB();
 

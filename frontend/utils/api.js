@@ -16,13 +16,13 @@ const apiRequest = async (endpoint, options = {}) => {
   }
 
   const response = await fetch(url, config);
-  const data = await response.json();
+  
 
   if (!response.ok) {
     throw new Error(data.message || 'Something went wrong');
   }
 
-  return data;
+  return response.json();
 };
 
 
@@ -63,8 +63,9 @@ export const createTask = (token, taskData) => {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
+      
     },
-    body: taskData,
+    body: JSON.stringify(taskData),
   });
 };
 
@@ -74,7 +75,7 @@ export const updateTask = (token, taskId, taskData) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: taskData,
+    body: JSON.stringify(taskData),
   });
 };
 

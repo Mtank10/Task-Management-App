@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import User from '../model/user-model.js';
 import jwt from 'jsonwebtoken';
 
@@ -12,10 +13,11 @@ export const registerUser = async (req,res)=>{
         message: 'User already exists with this email'
       });
     }
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
       name,
       email,
-      password
+      password: hashedPassword
     });
 
     await user.save();
@@ -60,8 +62,9 @@ export const loginUser = async (req,res)=>{
         message: 'Invalid email or password'
       });
     }
-
-    const isMatch = await user.comparePassword(password);
+    // console.log(user)
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch)
     if (!isMatch) {
       return res.status(401).json({
         success: false,
@@ -110,8 +113,8 @@ export const loginUser = async (req,res)=>{
 
 export const getCurrentUser = async (req,res)=>{
     try {
-        const userId = req.user.userId;
-    const user = await User.findById(userId).select('-password');
+        const userId = req.user._id;
+    const user = await User.findById(userId)
     if (!user) {
       return res.status(404).json({
         success: false,

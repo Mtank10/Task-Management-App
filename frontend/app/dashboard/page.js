@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [totalPages, setTotalPages] = useState(1);
   
   const { currentUser, token } = useAuth();
+  // console.log('Current User in Dashboard:', currentUser, token);
   const router = useRouter();
   
   const tasksPerPage = 10;
@@ -51,8 +52,9 @@ const Dashboard = () => {
       }
       
       const response = await getTasks(token, params);
-      setTasks(response.tasks);
-      setTotalPages(response.totalPages);
+      console.log('Fetched tasks:', response.data);
+      setTasks(response.data);
+      setTotalPages(response.data.length);
     } catch (error) {
       console.error('Failed to fetch tasks:', error);
     } finally {
@@ -62,6 +64,7 @@ const Dashboard = () => {
 
   const handleCreateTask = async (taskData) => {
     try {
+      // console.log(taskData)
       await createTask(token, taskData);
       setShowForm(false);
       fetchTasks();
@@ -117,7 +120,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">My Tasks</h1>
         <button

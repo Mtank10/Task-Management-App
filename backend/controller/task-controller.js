@@ -3,13 +3,14 @@ import Task from "../model/task-model.js";
 export const createTask = async (req, res) => {
   try {
     const { title, description, status } = req.body;
+    console.log(title);
     const userId = req.user._id;
 
     const task = new Task({
       title,
       description,
       status,
-      user: userId
+      owner: userId
     });
 
     await task.save();
@@ -34,7 +35,7 @@ export const getAllTasks = async (req, res) => {
     const userId = req.user._id;
     const { status, search, page = 1, limit = 10 } = req.query;
 
-    const query = { user: userId };
+    const query = { owner: userId };
     
     if (status) {
       query.status = status;
@@ -78,7 +79,7 @@ export const updateTask = async (req, res) => {
     const { title, description, status } = req.body;
     const userId = req.user._id;
 
-    const task = await Task.findOne({ _id: id, user: userId });
+    const task = await Task.findOne({ _id: id, owner: userId });
     if (!task) {
       return res.status(404).json({
         success: false,
@@ -111,7 +112,7 @@ export const deleteTask = async (req, res) => {
     const { id } = req.params;
     const userId = req.user._id;
 
-    const task = await Task.findOneAndDelete({ _id: id, user: userId });
+    const task = await Task.findOneAndDelete({ _id: id, owner: userId });
     if (!task) {
       return res.status(404).json({
         success: false,

@@ -22,7 +22,7 @@ export const auth = async (req, res, next) => {
     }
 
    
-    const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+    const token = authHeader.substring(7); 
 
     if (!token) {
       return res.status(401).json({

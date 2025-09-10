@@ -4,28 +4,13 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function Home() {
-  //   const { currentUser, token } = useAuth();
-  //     const router = useRouter();
-
-  // useEffect(() => {
-   
-  //   if (currentUser && token) {
-  //     router.push('/dashboard');
-  //   }
-  // }, [currentUser, token, router]);
-
-  // if (currentUser && token) {
-    
-  //   return (
-  //     <div className="flex justify-center items-center h-64">
-  //       <div className="loading-spinner"></div>
-  //     </div>
-  //   );
-  // }
-  return (
-        <div  className="w-full h-screen flex flex-col justify-center items-center bg-gray-100">
-          <h3 className="text-center">Task Management App</h3>
-          
+    return (
+        <>
+        
+        <div className="w-full min-h-screen text-center mt-10">
+          <h1 className="text-4xl font-bold mb-4">Welcome to Task Management App</h1>
+          <p className="text-lg text-gray-600">Manage your tasks efficiently and effectively.</p>
         </div>
+        </>
       );
 }

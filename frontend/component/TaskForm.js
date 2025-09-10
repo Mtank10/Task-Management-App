@@ -6,7 +6,7 @@ const TaskForm = ({ task, onSubmit, onCancel, isEditing }) => {
   const [description, setDescription] = useState(task?.description || '');
   const [status, setStatus] = useState(task?.status || 'pending');
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(title);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
